@@ -1,0 +1,23 @@
+.expenses {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 0;
+}
+
+.expense {
+  border-radius: 8px;
+  padding: 1em;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  border: 1px solid var(--gray-100);
+}
+
+.expense__detail {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
