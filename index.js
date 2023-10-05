@@ -1,4 +1,4 @@
-const expenses = [
+const initalExpenses = [
   {
     category: "shopping",
     description: "Comprar Pan",
@@ -16,6 +16,8 @@ const expenses = [
   },
 ];
 
+const expensesFromLocal = JSON.parse(localStorage.getItem("expenses"));
+const expenses = expensesFromLocal || initalExpenses;
 {
   /* <li class="expense">
   <div class="expense__detail">
@@ -71,6 +73,7 @@ function createExpenseEl(expense) {
 function deleteExpense(expense) {
   const index = expenses.indexOf(expense);
   expenses.splice(index, 1);
+  localStorage.setItem("expenses", JSON.stringify(expenses));
 }
 
 const expenseList = document.querySelector(".js-expenses");
@@ -93,15 +96,3 @@ function renderExpenses(expenses) {
 renderExpenses(expenses);
 
 //localstorage
-const people = [
-  {
-    name: "testino",
-    lastName: "DiPrueba",
-  },
-  {
-    name: "Jhoan",
-    lastName: "Orozco",
-  },
-];
-
-localStorage.setItem(people);
