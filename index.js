@@ -9,6 +9,11 @@ const expenses = [
     description: "Tequila",
     amount: 800,
   },
+  {
+    category: "Education",
+    description: "Codeable",
+    amount: 800,
+  },
 ];
 
 {
@@ -53,7 +58,19 @@ function createExpenseEl(expense) {
   expenseAction.append(deleteLink);
   expenseDetail.append(container, amount);
   li.append(expenseDetail, expenseAction);
+  //Event Listener
+  deleteLink.addEventListener("click", (event) => {
+    event.preventDefault();
+    console.log("clicked");
+    deleteExpense(expense);
+    renderExpenses(expenses);
+  });
   return li;
+}
+
+function deleteExpense(expense) {
+  const index = expenses.indexOf(expense);
+  expenses.splice(index, 1);
 }
 
 const expenseList = document.querySelector(".js-expenses");
@@ -63,11 +80,28 @@ expenseList.append(expense);
 function renderExpenses(expenses) {
   const expenseList = document.querySelector(".js-expenses");
   expenseList.innerHTML = "";
+
   expenses.forEach((expense) => {
+    console.log(expense);
     const expenseEl = createExpenseEl(expense);
+    console.log(expenseEl);
     expenseList.append(expenseEl);
   });
   //   const listLiExpenses = expenses.map((expense) => createExpenseEl(expense));
   //   expenseList.append(...listLiExpenses);
 }
 renderExpenses(expenses);
+
+//localstorage
+const people = [
+  {
+    name: "testino",
+    lastName: "DiPrueba",
+  },
+  {
+    name: "Jhoan",
+    lastName: "Orozco",
+  },
+];
+
+localStorage.setItem(people);
