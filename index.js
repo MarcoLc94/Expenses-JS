@@ -104,4 +104,9 @@ const people = [
   },
 ];
 
-localStorage.setItem(people);
+localStorage.setItem("chars", JSON.stringify(people));
+
+const getLocalStoragePipol = localStorage.getItem("chars")
+
+const objPipol = JSON.parse(getLocalStoragePipol)
+
