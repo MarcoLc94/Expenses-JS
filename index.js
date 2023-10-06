@@ -1,38 +1,3 @@
-const initalExpenses = [
-  {
-    category: "shopping",
-    description: "Comprar Pan",
-    amount: 5,
-  },
-  {
-    category: "shopping",
-    description: "Tequila",
-    amount: 800,
-  },
-  {
-    category: "Education",
-    description: "Codeable",
-    amount: 800,
-  },
-];
-
-const expensesFromLocal = JSON.parse(localStorage.getItem("expenses"));
-const expenses = expensesFromLocal || initalExpenses;
-{
-  /* <li class="expense">
-  <div class="expense__detail">
-    <div>
-      <p class="heading--xs bold">Shopping</p>
-      <p class="content--sm gray-300">Nintendo Switch</p>
-    </div>
-    <p class="content--xl bold">$500</p>
-  </div>
-  <div expense__actions>
-    <a href="#">Delete</a>
-  </div>
-</li>; */
-}
-
 function createExpenseEl(expense) {
   //create elements
   const li = document.createElement("li");
