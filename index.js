@@ -1,36 +1,3 @@
-const expenses = [
-  {
-    category: "shopping",
-    description: "Comprar Pan",
-    amount: 5,
-  },
-  {
-    category: "shopping",
-    description: "Tequila",
-    amount: 800,
-  },
-  {
-    category: "Education",
-    description: "Codeable",
-    amount: 800,
-  },
-];
-
-{
-  /* <li class="expense">
-  <div class="expense__detail">
-    <div>
-      <p class="heading--xs bold">Shopping</p>
-      <p class="content--sm gray-300">Nintendo Switch</p>
-    </div>
-    <p class="content--xl bold">$500</p>
-  </div>
-  <div expense__actions>
-    <a href="#">Delete</a>
-  </div>
-</li>; */
-}
-
 function createExpenseEl(expense) {
   //create elements
   const li = document.createElement("li");
@@ -71,6 +38,7 @@ function createExpenseEl(expense) {
 function deleteExpense(expense) {
   const index = expenses.indexOf(expense);
   expenses.splice(index, 1);
+  localStorage.setItem("expenses", JSON.stringify(expenses));
 }
 
 const expenseList = document.querySelector(".js-expenses");
@@ -93,16 +61,3 @@ function renderExpenses(expenses) {
 renderExpenses(expenses);
 
 //localstorage
-const people = [
-  {
-    name: "testino",
-    lastName: "DiPrueba",
-  },
-  {
-    name: "Jhoan",
-    lastName: "Orozco",
-  },
-];
-
-
-
