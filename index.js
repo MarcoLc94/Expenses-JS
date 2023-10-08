@@ -107,14 +107,10 @@ const ExpensesView = (function () {
     `;
   };
   const template = `
-  <main class="js-main">
-  <div class="container">
     <ul class="expenses js-expenses">
      ${Store.expense.map((expense) => renderExpense(expense)).join("")}
     </ul>
     <a href="new-expense.html" class="block text-center">Add New Expense</a>
-  </div>
-</main>
   `;
 
   return {
@@ -130,7 +126,10 @@ const App = DOMHandler("#root");
 const Layout = (function () {
   const template = `
   ${Header}
-  ${ExpensesView}
+  <main class="js-main">
+    <div class="container js-container">
+    </div>
+  </main>
   `;
 
   return {
@@ -142,5 +141,22 @@ const Layout = (function () {
     },
   };
 })();
+const NewExpenseView = (function () {
+  const template = `
+  <h2 class="heading--xs bold text-center mb-4">Add New Expense</h2>
+  `;
 
+  return {
+    toString() {
+      return template;
+    },
+    addListeners() {
+    
+    },
+  };
+})();
 App.load(Layout);
+
+const Main = DOMHandler(".js-container")
+Main.load(NewExpenseView);
+
