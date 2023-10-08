@@ -18,3 +18,14 @@ const initalExpenses = [
 
 const expensesFromLocal = JSON.parse(localStorage.getItem("expenses"));
 const expenses = expensesFromLocal || initalExpenses;
+
+function createExpense(expense) {
+  expenses.push(expense);
+  localStorage.setItem("expenses", JSON.stringify(expenses));
+}
+
+function deleteExpense(expense) {
+  const index = expenses.indexOf(expense);
+  expenses.splice(index, 1);
+  localStorage.setItem("expenses", JSON.stringify(expenses));
+}
