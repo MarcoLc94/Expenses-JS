@@ -34,7 +34,22 @@ const Store = (function () {
 // Store.expenses;
 // Store.createExpense(expense);
 // Store.deleteExpense(id);
-
+const  createInput = function ({id, label, type="text", placeholder=""}){
+  //<div class="input">
+  //<label for="category" class="content-xs overline">Category</label>
+  //<input
+  //  type="text"
+  //  id="Category"
+  //  name="Category"
+  //  class="input__container"
+  ///>
+  return `
+    <div class="input">
+    <label for="${id}" class="content-xs overline">${label}</label>
+    <input placeholder="${placeholder}" type="text" id="${id}" name="${id}" class="input__container"/>
+    </div>
+  `
+}
 const DOMHandler = function (parentSelector) {
   const parent = document.querySelector(parentSelector);
   if (!parent) throw new Error("Parent not found");
@@ -52,9 +67,9 @@ const Header = (function () {
   <div class="container navbar js-navbar">
     <h2>Expenses Tracker</h2>
     <nav>
-      <ul role="list" class="navbar-links">
-        <li><a href="index.html">List Expenses</a></li>
-        <li><a href="./new-expense.html">Add Expenses</a></li>
+      <ul role="list" class="navbar-links js-navbar-links">
+        <li><a data-ref="expenses">List Expenses</a></li>
+        <li><a data-ref="add-expense">Add Expenses</a></li>
       </ul>
     </nav>
     <div class="navbar-icons js-navbar-menu">
@@ -78,6 +93,21 @@ const Header = (function () {
       main.classList.toggle("section");
     });
   }
+  function listenNavigation(){
+    const ul = document.querySelector(".js-navbar-links")
+    ul.addEventListener("click", (event) => {
+      const ref = event.target.dataset.ref
+      switch (ref) {
+        case "expenses":
+        Main.load(ExpensesView)
+        break;
+        case "add-expense":
+        Main.load(NewExpenseView)
+        default:
+        break;
+      }
+    })
+  }
 
   return {
     toString() {
@@ -85,11 +115,19 @@ const Header = (function () {
     },
     addListeners() {
       listenMenu();
+      listenNavigation()
     },
   };
 })();
 
+
 const ExpensesView = (function () {
+  function listenAddNewExpense(){
+    const linkAdd = document.querySelector(".js-link-add-expense")
+    linkAdd.addEventListener("click", ()=>{
+      Main.load(NewExpenseView)
+    })
+  }
   const renderExpense = (expense) => {
     return `
     <li class="expense">
@@ -110,18 +148,35 @@ const ExpensesView = (function () {
     <ul class="expenses js-expenses">
      ${Store.expense.map((expense) => renderExpense(expense)).join("")}
     </ul>
-    <a href="new-expense.html" class="block text-center">Add New Expense</a>
+    <a class="block text-center js-link-add-expense">Add New Expense</a>
   `;
 
   return {
     toString() {
       return template;
     },
-    addListeners() {},
+    addListeners() {
+      listenAddNewExpense()
+    },
   };
 })();
 
 const App = DOMHandler("#root");
+
+const FooterView = (function () {
+  const template = `
+  <footer class="footer">codeable 2023</footer>
+  `;
+
+  return {
+    toString() {
+      return template;
+    },
+    addListeners() {
+    
+    },
+  };
+})();
 
 const Layout = (function () {
   const template = `
@@ -130,6 +185,7 @@ const Layout = (function () {
     <div class="container js-container">
     </div>
   </main>
+  ${FooterView}
   `;
 
   return {
@@ -144,6 +200,39 @@ const Layout = (function () {
 const NewExpenseView = (function () {
   const template = `
   <h2 class="heading--xs bold text-center mb-4">Add New Expense</h2>
+  <form action="#" class="flex flex-column gap-4 js-expense-form">
+          <div class="input">
+            <label for="category" class="content-xs overline">Category</label>
+            <input
+              type="text"
+              id="Category"
+              name="Category"
+              class="input__container"
+            />
+            <label for="Description" class="content-xs overline"
+              >Description</label
+            >
+            <input
+              type="text"
+              id="Description"
+              name="Description"
+              class="input__container"
+            />
+            <label for="Amount" class="content-xs overline">Amount</label>
+            <input
+              type="number"
+              id="Amount"
+              name="Amount"
+              class="input__container"
+            />
+          </div>
+          <button
+            type="submit"
+            class="overline button--primary button button-lg full-width"
+          >
+            Add Expense
+          </button>
+        </form>
   `;
 
   return {
@@ -155,8 +244,9 @@ const NewExpenseView = (function () {
     },
   };
 })();
+
 App.load(Layout);
 
 const Main = DOMHandler(".js-container")
-Main.load(NewExpenseView);
+Main.load(ExpensesView);
 
