@@ -46,7 +46,7 @@ const  createInput = function ({id, label, type="text", placeholder=""}){
   return `
     <div class="input">
     <label for="${id}" class="content-xs overline">${label}</label>
-    <input placeholder="${placeholder}" type="text" id="${id}" name="${id}" class="input__container"/>
+    <input placeholder="${placeholder}" type="${type}" id="${id}" name="${id}" class="input__container"/>
     </div>
   `
 }
@@ -201,31 +201,9 @@ const NewExpenseView = (function () {
   const template = `
   <h2 class="heading--xs bold text-center mb-4">Add New Expense</h2>
   <form action="#" class="flex flex-column gap-4 js-expense-form">
-          <div class="input">
-            <label for="category" class="content-xs overline">Category</label>
-            <input
-              type="text"
-              id="Category"
-              name="Category"
-              class="input__container"
-            />
-            <label for="Description" class="content-xs overline"
-              >Description</label
-            >
-            <input
-              type="text"
-              id="Description"
-              name="Description"
-              class="input__container"
-            />
-            <label for="Amount" class="content-xs overline">Amount</label>
-            <input
-              type="number"
-              id="Amount"
-              name="Amount"
-              class="input__container"
-            />
-          </div>
+    ${createInput({id: "category", label: "category"})}
+    ${createInput({id: "description", label: "description"})}
+    ${createInput({id: "amount", label: "amount", type: "number"})}
           <button
             type="submit"
             class="overline button--primary button button-lg full-width"
