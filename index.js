@@ -148,7 +148,11 @@ const ExpensesView = (function () {
     <ul class="expenses js-expenses">
      ${Store.expense.map((expense) => renderExpense(expense)).join("")}
     </ul>
+<<<<<<< HEAD
     <a class="block text-center js-link-add-expense">Add New Expense</a>
+=======
+    <a href="new-expense.html" class="block text-center">Add New Expense</a>
+>>>>>>> 79ed413 (monday2)
   `;
 
   return {
@@ -183,9 +187,15 @@ const Layout = (function () {
   ${Header}
   <main class="js-main">
     <div class="container js-container">
+<<<<<<< HEAD
     </div>
   </main>
   ${FooterView}
+=======
+
+    </div>
+  </main>
+>>>>>>> 79ed413 (monday2)
   `;
 
   return {
@@ -224,7 +234,27 @@ const NewExpenseView = (function () {
 })();
 
 App.load(Layout);
+<<<<<<< HEAD
 
 const Main = DOMHandler(".js-container")
 Main.load(ExpensesView);
 
+=======
+const Main = DOMHandler(".js-container");
+Main.load(ExpensesView);
+
+const NewExpenseView = (function () {
+  const template = `
+  
+  `;
+
+  return {
+    toString() {
+      return template;
+    },
+    addListeners() {
+      Header.addListeners();
+    },
+  };
+})();
+>>>>>>> 79ed413 (monday2)
