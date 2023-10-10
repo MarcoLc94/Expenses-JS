@@ -34,7 +34,7 @@ const Store = (function () {
 // Store.expenses;
 // Store.createExpense(expense);
 // Store.deleteExpense(id);
-const  createInput = function ({id, label, type="text", placeholder=""}){
+const createInput = function ({ id, label, type = "text", placeholder = "" }) {
   //<div class="input">
   //<label for="category" class="content-xs overline">Category</label>
   //<input
@@ -48,8 +48,8 @@ const  createInput = function ({id, label, type="text", placeholder=""}){
     <label for="${id}" class="content-xs overline">${label}</label>
     <input placeholder="${placeholder}" type="${type}" id="${id}" name="${id}" class="input__container"/>
     </div>
-  `
-}
+  `;
+};
 const DOMHandler = function (parentSelector) {
   const parent = document.querySelector(parentSelector);
   if (!parent) throw new Error("Parent not found");
@@ -93,20 +93,20 @@ const Header = (function () {
       main.classList.toggle("section");
     });
   }
-  function listenNavigation(){
-    const ul = document.querySelector(".js-navbar-links")
+  function listenNavigation() {
+    const ul = document.querySelector(".js-navbar-links");
     ul.addEventListener("click", (event) => {
-      const ref = event.target.dataset.ref
+      const ref = event.target.dataset.ref;
       switch (ref) {
         case "expenses":
-        Main.load(ExpensesView)
-        break;
+          Main.load(ExpensesView);
+          break;
         case "add-expense":
-        Main.load(NewExpenseView)
+          Main.load(NewExpenseView);
         default:
-        break;
+          break;
       }
-    })
+    });
   }
 
   return {
@@ -115,18 +115,17 @@ const Header = (function () {
     },
     addListeners() {
       listenMenu();
-      listenNavigation()
+      listenNavigation();
     },
   };
 })();
 
-
 const ExpensesView = (function () {
-  function listenAddNewExpense(){
-    const linkAdd = document.querySelector(".js-link-add-expense")
-    linkAdd.addEventListener("click", ()=>{
-      Main.load(NewExpenseView)
-    })
+  function listenAddNewExpense() {
+    const linkAdd = document.querySelector(".js-link-add-expense");
+    linkAdd.addEventListener("click", () => {
+      Main.load(NewExpenseView);
+    });
   }
   const renderExpense = (expense) => {
     return `
@@ -148,11 +147,7 @@ const ExpensesView = (function () {
     <ul class="expenses js-expenses">
      ${Store.expense.map((expense) => renderExpense(expense)).join("")}
     </ul>
-<<<<<<< HEAD
     <a class="block text-center js-link-add-expense">Add New Expense</a>
-=======
-    <a href="new-expense.html" class="block text-center">Add New Expense</a>
->>>>>>> 79ed413 (monday2)
   `;
 
   return {
@@ -160,7 +155,7 @@ const ExpensesView = (function () {
       return template;
     },
     addListeners() {
-      listenAddNewExpense()
+      listenAddNewExpense();
     },
   };
 })();
@@ -176,9 +171,7 @@ const FooterView = (function () {
     toString() {
       return template;
     },
-    addListeners() {
-    
-    },
+    addListeners() {},
   };
 })();
 
@@ -187,15 +180,9 @@ const Layout = (function () {
   ${Header}
   <main class="js-main">
     <div class="container js-container">
-<<<<<<< HEAD
     </div>
   </main>
   ${FooterView}
-=======
-
-    </div>
-  </main>
->>>>>>> 79ed413 (monday2)
   `;
 
   return {
@@ -211,9 +198,9 @@ const NewExpenseView = (function () {
   const template = `
   <h2 class="heading--xs bold text-center mb-4">Add New Expense</h2>
   <form action="#" class="flex flex-column gap-4 js-expense-form">
-    ${createInput({id: "category", label: "category"})}
-    ${createInput({id: "description", label: "description"})}
-    ${createInput({id: "amount", label: "amount", type: "number"})}
+    ${createInput({ id: "category", label: "category" })}
+    ${createInput({ id: "description", label: "description" })}
+    ${createInput({ id: "amount", label: "amount", type: "number" })}
           <button
             type="submit"
             class="overline button--primary button button-lg full-width"
@@ -227,34 +214,24 @@ const NewExpenseView = (function () {
     toString() {
       return template;
     },
-    addListeners() {
-    
-    },
+    addListeners() {},
   };
 })();
 
 App.load(Layout);
-<<<<<<< HEAD
-
-const Main = DOMHandler(".js-container")
-Main.load(ExpensesView);
-
-=======
 const Main = DOMHandler(".js-container");
 Main.load(ExpensesView);
 
-const NewExpenseView = (function () {
-  const template = `
-  
-  `;
+// const example = (function () {
+//   const template = `
 
-  return {
-    toString() {
-      return template;
-    },
-    addListeners() {
-      Header.addListeners();
-    },
-  };
-})();
->>>>>>> 79ed413 (monday2)
+//   `;
+
+//   return {
+//     toString() {
+//       return template;
+//     },
+//     addListeners() {
+//     },
+//   };
+// })();
