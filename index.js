@@ -20,7 +20,7 @@ const Store = (function () {
   return {
     expense: JSON.parse(localStorage.getItem("expenses")) || initalExpenses,
     createExpense(expense) {
-      console.log(this.expense)
+      console.log(this.expense);
       this.expense.push(expense);
       localStorage.setItem("expenses", JSON.stringify(this.expense));
     },
@@ -150,14 +150,15 @@ const ExpensesView = (function () {
      ${Store.expense.map((expense) => renderExpense(expense)).join("")}
     </ul>
     <a class="block text-center js-link-add-expense">Add New Expense</a>
-  `};
+  `;
+  };
 
   return {
     toString() {
       return template();
     },
     addListeners() {
-      listenAddNewExpense()
+      listenAddNewExpense();
     },
   };
 })();
@@ -197,19 +198,19 @@ const Layout = (function () {
   };
 })();
 const NewExpenseView = (function () {
-  function listenSubmit(){
-    const form = document.querySelector(".js-expense-form")
-    form.addEventListener("submit", (event) =>{
-      event.preventDefault()
-      const { category, description, amount} = event.target.elements
+  function listenSubmit() {
+    const form = document.querySelector(".js-expense-form");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const { category, description, amount } = event.target.elements;
       const newExpense = {
         category: category.value,
         description: description.value,
-        amount: amount.value
-      }
-      Store.createExpense(newExpense)
-      Main.load(ExpensesView)
-    })
+        amount: amount.value,
+      };
+      Store.createExpense(newExpense);
+      Main.load(ExpensesView);
+    });
   }
   const template = `
   <h2 class="heading--xs bold text-center mb-4">Add New Expense</h2>
@@ -231,7 +232,7 @@ const NewExpenseView = (function () {
       return template;
     },
     addListeners() {
-    
+      listenSubmit();
     },
   };
 })();
