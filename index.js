@@ -1,16 +1,28 @@
+const idGenerator = (function () {
+  let id = 0;
+  return {
+    next() {
+      return id++;
+    },
+  };
+})();
+
 const Store = (function () {
   const initalExpenses = [
     {
+      id: idGenerator.next(),
       category: "shopping",
       description: "Comprar Pan",
       amount: 5,
     },
     {
+      id: idGenerator.next(),
       category: "shopping",
       description: "Tequila",
       amount: 800,
     },
     {
+      id: idGenerator.next(),
       category: "Education",
       description: "Codeable",
       amount: 800,
@@ -20,12 +32,15 @@ const Store = (function () {
   return {
     expense: JSON.parse(localStorage.getItem("expenses")) || initalExpenses,
     createExpense(expense) {
+      expense.id = idGenerator.next();
       console.log(this.expense);
       this.expense.push(expense);
       localStorage.setItem("expenses", JSON.stringify(this.expense));
     },
-    deleteExpense(expense) {
-      const index = this.expense.indexOf(expense);
+    deleteExpense(id) {
+      const index = this.expense.findIndex(
+        (expense) => expense.id === parseInt(id)
+      );
       this.expense.splice(index, 1);
       localStorage.setItem("expenses", JSON.stringify(this.expense));
     },
@@ -128,6 +143,16 @@ const ExpensesView = (function () {
       Main.load(NewExpenseView);
     });
   }
+  function listenDelete() {
+    const ul = document.querySelector(".js-expenses");
+    ul.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (!event.target.classList.contains("js-delete")) return;
+      const id = event.target.dataset.id;
+      Store.deleteExpense(id);
+      Main.load(ExpensesView);
+    });
+  }
   const renderExpense = (expense) => {
     return `
     <li class="expense">
@@ -159,6 +184,7 @@ const ExpensesView = (function () {
     },
     addListeners() {
       listenAddNewExpense();
+      listenDelete();
     },
   };
 })();
